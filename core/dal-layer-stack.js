@@ -1,5 +1,5 @@
 'use strict';
-const {isString} = require('./helper/string-helper');
+const { isString } = require('./helper/string-helper');
 const DALLayer = require('./dal-layer');
 
 
@@ -10,7 +10,7 @@ var DALLayerStack = function () {
   this._key = {};
 };
 
-DALLayerStack.prototype.refresh_key = function() {
+DALLayerStack.prototype.refresh_key = function () {
 
   var _this = this;
   this.layers.forEach(dalLayer => {
@@ -38,7 +38,7 @@ DALLayerStack.prototype.init = function (payload) {
 };
 
 
-// @@ Modifies stack
+// @@ Modify stack
 DALLayerStack.prototype.insert = function (...payloads) {
   this.layers.push.apply(this.layers, DALLayer.massInit(payloads, this.anchorDir));
   return this;

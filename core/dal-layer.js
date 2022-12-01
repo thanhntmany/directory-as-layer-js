@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const {isString} = require('./helper/string-helper');
+const { isString } = require('./helper/string-helper');
 
 
 // @@ Main class

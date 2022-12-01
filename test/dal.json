@@ -1,15 +1,15 @@
 {
-    "layers": [
-        {
-            "key": "abc",
-            "path": "./sandbox/thànhnt.many"
-        },
-        "./sandbox/base-abcde1234567!@#$%",
-        "./sandbox/1234dafd",
-        "./sandbox/.astraiers.not-a-directory",
-        {
-            "key": "def",
-            "path": "../../sandbox/thànhnt.many"
-        }
-    ]
+  "layers": [
+    {
+      "key": "abc",
+      "path": "./sandbox/thànhnt.many"
+    },
+    "./sandbox/base-abcde1234567!@#$%",
+    "./sandbox/1234dafd",
+    "./sandbox/.astraiers.not-a-directory",
+    {
+      "key": "def",
+      "path": "../../sandbox/thànhnt.many"
+    }
+  ]
 }
