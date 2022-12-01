@@ -1,0 +1,19 @@
+{
+  "name": "directory-as-layer-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test1": "cd ./test && node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thanhntmany/directory-as-layer-js.git"
+  },
+  "author": "thanhnt.many@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thanhntmany/directory-as-layer-js/issues"
+  },
+  "homepage": "https://github.com/thanhntmany/directory-as-layer-js#readme"
+}
