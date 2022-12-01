@@ -1,5 +1,5 @@
 'use strict';
-const DALHandler = require('./core/dal-handler');
+const DALHandler = require('./dal');
 
 
 // Main App
@@ -19,7 +19,7 @@ App.prototype.logError = function () {
 App.prototype.initAsync = function (file, callback) {
 
   DALHandler.initAsync(file, (dalHandler) => {
-    this.dalHandler = dalHandler;
+    this.dal = dalHandler;
     callback(this);
   });
 

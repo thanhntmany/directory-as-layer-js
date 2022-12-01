@@ -2,7 +2,7 @@
   "name": "directory-as-layer-js",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "dal.js",
   "scripts": {
     "test1": "cd ./test && node ./test.js"
   },
