@@ -4,6 +4,7 @@
   "description": "",
   "main": "dal.js",
   "scripts": {
+    "cli": "node ./cli.js",
     "test1": "cd ./test && node ./test.js"
   },
   "repository": {

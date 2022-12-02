@@ -23,7 +23,7 @@ DALLayer.prototype.load = function (payload, anchorDir) {
   };
 
   // Make sure the 'path' of DALLayer is always an absolute path.
-  this.path = path.resolve(path.join(anchorDir, this.path));
+  if (!path.isAbsolute(this.path)) this.path = path.resolve(path.join(anchorDir, this.path));
 
   return this;
 };
@@ -34,6 +34,7 @@ DALLayer.prototype.init = function (payload, anchorDir) {
 };
 
 
+// @@ Export
 exports.DALLayer = DALLayer;
 exports.init = function (...args) {
   var obj = new DALLayer();
