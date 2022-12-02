@@ -1,6 +1,6 @@
-const main = require("../mainApp");
+const mainApp = require("../mainApp");
 
 
-main.initAsync("./dal.json", app => {
+mainApp.initAsync("./dal.json", app => {
   console.dir(app, {"showHidden": true, "depth":null})
 });

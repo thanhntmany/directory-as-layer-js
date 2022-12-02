@@ -1,36 +1,16 @@
 'use strict';
-// const DALHandler = require('./dal');
+const path = require('path');
+const cli = require('./core/cli');
+const JSONio = require('./core/helper/json-io')
 
 
-// // Main AppCLI
-// const AppCLI = function () {
-// };
-
-// // @@ Logging
-// AppCLI.prototype.log = function () {
-//   console.log.apply(null, arguments)
-// };
-
-// AppCLI.prototype.logError = function () {
-//   console.error.apply(null, arguments)
-// };
-
-// // @@ Load DAL File
-// AppCLI.prototype.initAsync = function (file, callback) {
-
-//   DALHandler.initAsync(file, (dalHandler) => {
-//     this.dal = dalHandler;
-//     callback(this);
-//   });
-
-// };
-
-
-// exports.AppCLI = AppCLI;
-// exports.initAsync = function (file, callback) {
-//   var app = new AppCLI();
-//   app.initAsync(file, callback);
-// };
 
 console.log("Run CLI App!!!");
+console.log("\nCurrent working directory:\n", process.cwd());
 console.log(process.argv);
+
+console.log("========================================");
+
+cli.initAsync(appCli => {
+  console.dir(appCli, {"depth": null});
+});

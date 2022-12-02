@@ -1,4 +1,6 @@
 #!/bin/bash
 
-export DAL_PKG_DIR="/home/thanhntmany/lab/astraiers-ecosystem/directory-as-layer-js/"
+
+SCRIPT_DIR=$( dirname -- "$(readlink -f "$0" )")
+export DAL_PKG_DIR="$SCRIPT_DIR"
 alias dal='node "$DAL_PKG_DIR/cli"'
