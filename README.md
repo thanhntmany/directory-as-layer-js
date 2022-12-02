@@ -7,7 +7,8 @@
 
 ## INSTALL
 
-Run below command to add 'dal' alias into shell.
+Run below command to add '*dal*' alias into shell.
+
 ```bash
 source ./install-alias.sh
 ```
