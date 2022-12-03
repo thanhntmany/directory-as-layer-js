@@ -5,7 +5,6 @@ const DALLayer = require('./dal-layer');
 
 // @@ Main class
 const Class = function DALStack() {
-  this.exclude = [];
   this.stack = [];
   this._key = {};
 };
@@ -35,8 +34,7 @@ _proto.loadLayers = function (payloads) {
 };
 
 _proto.init = function (payload) {
-  this.exclude = payload.exclude || [];
-  this.loadLayers(payload.stack);
+  this.loadLayers(payload);
 
   return this;
 };

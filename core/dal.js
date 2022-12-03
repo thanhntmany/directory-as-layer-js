@@ -5,6 +5,7 @@ const DALStack = require('./dal-stack');
 // @@ Main class
 const Class = function DALHandler() {
   this.stack = DALStack.create();
+  this.exclude = [];
 };
 
 const _proto = Class.prototype;
@@ -12,7 +13,8 @@ const _proto = Class.prototype;
 
 // @@ class's functions
 _proto.loadDAL = function (payload) {
-  this.stack.init(payload);
+  if (Array.isArray(payload.exclude)) this.exclude = payload.exclude;
+  this.stack.init(payload.stack);
   return this;
 };
 

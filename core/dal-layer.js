@@ -11,7 +11,7 @@ const Class = function DALLayer() {
 const _proto = Class.prototype;
 
 
-// @@ class's functions
+// @@ function
 _proto.load = function (payload) {
   this.path = payload.path;
   if (isString(payload.key)) this.key = payload.key;
