@@ -1,4 +1,5 @@
 'use strict';
+const DalFile = require("./dal-file");
 const DALHandler = require('./dal');
 
 
@@ -9,7 +10,7 @@ const Class = function App () {
 const _proto = Class.prototype;
 
 
-// @@ Logging
+// @@ logging
 _proto.log = function () {
   console.log.apply(null, arguments)
 };
@@ -19,17 +20,18 @@ _proto.logError = function () {
 };
 
 
-// @@ Load DAL
-_proto.init = function (payload) {
+// @@ functions
+_proto.loadDAL = function (payload) {
   this.dal = DALHandler.init(payload);
   return this;
 };
 
-_proto.initAsync = function (file, callback) {
-  DALHandler.initAsync(file, (dalHandler) => {
-    this.dal = dalHandler;
-    callback(this);
-  });
+_proto.init = _proto.loadDAL;
+
+_proto.initInDir = function (dirPath) {
+  this.dalFile = DalFile.findUpAndLoadDALFromDir(dirPath);
+  this.loadDAL(this.dalFile.payload);
+  return this;
 };
 
 
@@ -40,7 +42,11 @@ exports.create = function () {
   return new this.Class();
 };
 
-exports.initAsync = function (file, callback) {
+exports.init = function (payload) {
+  return this.create().init(payload)
+};
+
+exports.initInDir = function (...args) {
   var obj = this.create();
-  obj.initAsync(file, callback);
+  return obj.initInDir.apply(obj, args);
 };

@@ -5,7 +5,6 @@ const DALLayer = require('./dal-layer');
 
 // @@ Main class
 const Class = function DALLayerStack() {
-  this.anchorDir = null;
   this.exclude = [];
   this.layers = [];
   this._key = {};

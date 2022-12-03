@@ -14,7 +14,7 @@ exports.loadJSONAsync = function (file, ...args) {
 
 };
 
-exports.loadJSONSync = function (file, ...args) {
+exports.loadJSON = function (file, ...args) {
   var options = args.pop() || { "encoding": "utf8" };
 
   // #TODO: Makes it work properly on FreeBSD

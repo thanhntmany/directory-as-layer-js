@@ -10,12 +10,5 @@ console.log("\nCurrent working directory:\n", process.cwd());
 console.log(process.argv);
 
 console.log("========================================");
-
-cli.initAsync(
-  {
-    "cwd": process.cwd(),
-  },
-  appCli => {
-    console.dir(appCli, {"depth": null});
-  }
-);
+console.dir(cli.init(), {"depth": null});
+console.log("========================================");
