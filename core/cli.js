@@ -12,7 +12,7 @@ const _proto = Class.prototype;
 
 
 _proto.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";
-exports.DALNotFound = function DALNotFound(message) {
+function DALNotFound(message) {
   this.message = message;
   this.code = 'DALNotFound';
   this.action = 'findUpAndLoadDAL';
@@ -85,6 +85,8 @@ _proto.initAsync = function (options, callback) {
 
 // @@ Export
 exports.Class = Class;
+
+exports.DALNotFound = DALNotFound;
 
 exports.create = function () {
   return new this.Class();
