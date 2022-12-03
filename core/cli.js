@@ -82,6 +82,7 @@ _proto.initAsync = function (options, callback) {
   return this
 };
 
+
 // @@ Export
 exports.Class = Class;
 
