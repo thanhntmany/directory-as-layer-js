@@ -29,7 +29,8 @@ _proto.loadDAL = function (payload) {
 _proto.init = _proto.loadDAL;
 
 _proto.initInDir = function (dirPath) {
-  this.dalFile = DalFile.findUpAndLoadDALFromDir(dirPath);
+  // dalFile must be standardized before processing.
+  this.dalFile = DalFile.findUpAndLoadDALFromDir(dirPath).standardize();
   this.loadDAL(this.dalFile.payload);
   return this;
 };

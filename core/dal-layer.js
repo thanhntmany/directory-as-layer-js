@@ -14,20 +14,13 @@ const _proto = Class.prototype;
 
 // @@ class's functions
 _proto.load = function (payload) {
-
-  if (isString(payload)) {
-    this.path = payload;
-    this.key = path.basename(this.path);
-  }
-  else {
-    if (isString(payload.path)) this.path = payload.path;
-    if (isString(payload.key)) this.key = payload.key;
+  this.path = payload.path;
+  if (isString(payload.key)) {
+    this.key = payload.key;
   };
-
-  // Make sure the 'path' of Class is always an absolute path.
-  // NOTE: The relative path is resolved base on the current working directory.
-  if (!path.isAbsolute(this.path)) this.path = path.resolve(this.path);
-
+  // else {
+  //   try {}
+  // };
   return this;
 };
 
