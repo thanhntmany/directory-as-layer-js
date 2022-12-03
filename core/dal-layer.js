@@ -1,12 +1,11 @@
 'use strict';
-const path = require('path');
 const { isString } = require('./helper/string-helper');
+const DalFile = require("./dal-file");
 
 
 // @@ Main class
 const Class = function DALLayer() {
   this.path = null;
-  this.key = null;
 };
 
 const _proto = Class.prototype;
@@ -15,12 +14,7 @@ const _proto = Class.prototype;
 // @@ class's functions
 _proto.load = function (payload) {
   this.path = payload.path;
-  if (isString(payload.key)) {
-    this.key = payload.key;
-  };
-  // else {
-  //   try {}
-  // };
+  if (isString(payload.key)) this.key = payload.key;
   return this;
 };
 
