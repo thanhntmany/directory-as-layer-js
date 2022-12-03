@@ -4,7 +4,7 @@ const DALHandler = require('./dal');
 
 
 // Main Class
-const Class = function App () {
+const Class = function DALAppCore () {
 };
 
 const _proto = Class.prototype;

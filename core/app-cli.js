@@ -1,10 +1,10 @@
 'use strict';
 const DalFile = require("./dal-file");
-const MainApp = require("./mainApp");
+const AppCore = require("./app-core");
 
 
 // @@ Main Class
-const Class = function AppCli() {
+const Class = function DALAppCli() {
 };
 
 const _proto = Class.prototype;
@@ -27,7 +27,7 @@ _proto.init = function (options) {
 
   // #TODO: try-catch, if DALFileNotFound
   // this.dalFile = DalFile.findUpAndLoadDALFromDir(this.cwd);
-  this.app = MainApp.initInDir(this.cwd);
+  this.appCore = AppCore.initInDir(this.cwd);
 
   return this;
 };
