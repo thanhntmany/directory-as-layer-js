@@ -11,6 +11,11 @@ console.log(process.argv);
 
 console.log("========================================");
 
-cli.initAsync(appCli => {
-  console.dir(appCli, {"depth": null});
-});
+cli.initAsync(
+  {
+    "cwd": process.cwd(),
+  },
+  appCli => {
+    console.dir(appCli, {"depth": null});
+  }
+);

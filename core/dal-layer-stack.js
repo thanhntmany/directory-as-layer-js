@@ -22,17 +22,16 @@ DALLayerStack.prototype.refresh_key = function () {
   this._key['base'] = this.layers[0];
 };
 
-DALLayerStack.prototype.loadLayers = function (rawLayers) {
-  if (!Array.isArray(rawLayers)) rawLayers = [];
+DALLayerStack.prototype.loadLayers = function (payloads) {
+  if (!Array.isArray(payloads)) payloads = [];
 
-  this.layers = DALLayer.massInit(rawLayers, this.anchorDir);
+  this.layers = DALLayer.massInit(payloads);
   this.refresh_key();
 
   return this;
 };
 
 DALLayerStack.prototype.init = function (payload) {
-  this.anchorDir = payload.anchorDir || process.cwd();
   this.exclude = payload.exclude || [];
   this.loadLayers(payload.layers);
 
@@ -41,25 +40,25 @@ DALLayerStack.prototype.init = function (payload) {
 
 
 // @@ Modify stack
-DALLayerStack.prototype.insert = function (...payloads) {
-  this.layers.push.apply(this.layers, DALLayer.massInit(payloads, this.anchorDir));
+DALLayerStack.prototype.insert = function (...layerPayloads) {
+  this.layers.push.apply(this.layers, DALLayer.massInit(layerPayloads));
   return this;
 };
 
-DALLayerStack.prototype.insertAt = function (index, ...payloads) {
-  this.layers.splice.apply(this.layers, [index, 0].concat(DALLayer.massInit(payloads, this.anchorDir)));
+DALLayerStack.prototype.insertAt = function (index, ...layerPayloads) {
+  this.layers.splice.apply(this.layers, [index, 0].concat(DALLayer.massInit(layerPayloads)));
   return this;
 };
 
-DALLayerStack.prototype.splice = function (start, deleteCount, ...payloads) {
-  return this.layers.splice.apply(this.layers, [start, deleteCount].concat(DALLayer.massInit(payloads, this.anchorDir)));
+DALLayerStack.prototype.splice = function (start, deleteCount, ...layerPayloads) {
+  return this.layers.splice.apply(this.layers, [start, deleteCount].concat(DALLayer.massInit(layerPayloads)));
 };
 
 
 // @@ Export
-exports.DALLayerStack = DALLayerStack;
+exports.Class = DALLayerStack;
 exports.create = function () {
-  return new this.DALLayerStack();
+  return new this.Class();
 };
 exports.init = function (payload) {
   return this.create().init(payload)

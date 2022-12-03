@@ -4,18 +4,16 @@ const { isString } = require('./helper/string-helper');
 
 
 // @@ Main class
-var DALLayer = function () { };
+var DALLayer = function () {
+  this.path = null;
+  this.key = null;
+};
 
-
-DALLayer.prototype.load = function (payload, anchorDir) {
-
-  if (isString(payload.anchorDir)) {
-    anchorDir = payload.anchorDir;
-  }
-  else if (!isString(anchorDir)) anchorDir = process.cwd();
+DALLayer.prototype.load = function (payload) {
 
   if (isString(payload)) {
     this.path = payload;
+    this.key = path.basename(this.path);
   }
   else {
     if (isString(payload.path)) this.path = payload.path;
@@ -23,23 +21,27 @@ DALLayer.prototype.load = function (payload, anchorDir) {
   };
 
   // Make sure the 'path' of DALLayer is always an absolute path.
-  if (!path.isAbsolute(this.path)) this.path = path.resolve(path.join(anchorDir, this.path));
+  // NOTE: The relative path is resolved base on the current working directory.
+  if (!path.isAbsolute(this.path)) this.path = path.resolve(this.path);
 
   return this;
 };
 
-DALLayer.prototype.init = function (payload, anchorDir) {
+DALLayer.prototype.init = function (payload) {
   if (payload instanceof DALLayer) return payload;
-  return this.load(payload, anchorDir);
+  return this.load(payload);
 };
 
 
 // @@ Export
-exports.DALLayer = DALLayer;
-exports.init = function (...args) {
-  var obj = new DALLayer();
-  return obj.init.apply(obj, args)
+exports.Class = DALLayer;
+exports.create = function () {
+  return new this.Class();
 };
-exports.massInit = function (payloads, anchorDir) {
-  return payloads.map(payload => this.init(payload, anchorDir))
+exports.init = function (...args) {
+  var obj = this.create();
+  return obj.init.apply(obj, args);
+};
+exports.massInit = function (payloads) {
+  return payloads.map(this.init, this);
 };
