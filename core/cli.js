@@ -11,7 +11,7 @@ const Class = function AppCli() {
 const _proto = Class.prototype;
 
 
-_proto.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";
+_proto.DALRELATIVEPATH = ".dal.json";
 function DALNotFound(message) {
   this.message = message;
   this.code = 'DALNotFound';
@@ -85,6 +85,8 @@ _proto.initAsync = function (options, callback) {
 
 // @@ Export
 exports.Class = Class;
+
+exports.DALRELATIVEPATH = _proto.DALRELATIVEPATH;
 
 exports.DALNotFound = DALNotFound;
 
