@@ -4,12 +4,12 @@ const { isString } = require('./helper/string-helper');
 
 
 // @@ Main class
-var DALLayer = function () {
+var Class = function DALLayer () {
   this.path = null;
   this.key = null;
 };
 
-DALLayer.prototype.load = function (payload) {
+Class.prototype.load = function (payload) {
 
   if (isString(payload)) {
     this.path = payload;
@@ -20,21 +20,21 @@ DALLayer.prototype.load = function (payload) {
     if (isString(payload.key)) this.key = payload.key;
   };
 
-  // Make sure the 'path' of DALLayer is always an absolute path.
+  // Make sure the 'path' of Class is always an absolute path.
   // NOTE: The relative path is resolved base on the current working directory.
   if (!path.isAbsolute(this.path)) this.path = path.resolve(this.path);
 
   return this;
 };
 
-DALLayer.prototype.init = function (payload) {
-  if (payload instanceof DALLayer) return payload;
+Class.prototype.init = function (payload) {
+  if (payload instanceof Class) return payload;
   return this.load(payload);
 };
 
 
 // @@ Export
-exports.Class = DALLayer;
+exports.Class = Class;
 exports.create = function () {
   return new this.Class();
 };
