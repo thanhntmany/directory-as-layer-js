@@ -4,12 +4,14 @@ const mainApp = require("./mainApp");
 const JSONio = require('./helper/json-io')
 
 
-
-
 // @@ Main AppCli
-const AppCli = function () {
+const Class = function AppCli () {
 };
-AppCli.prototype.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";
+
+const _proto = Class.prototype;
+
+
+_proto.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";
 var DALNotFound                  = exports.DALNotFound     = function(message) {
   this.message = message;
   this.code = 'DALNotFound';
@@ -19,22 +21,22 @@ var DALNotFound                  = exports.DALNotFound     = function(message) {
 
 
 // @@ Logging
-AppCli.prototype.log = function () {
+_proto.log = function () {
   console.log.apply(null, arguments)
 };
 
-AppCli.prototype.logError = function () {
+_proto.logError = function () {
   console.error.apply(null, arguments)
 };
 
 
 // @@
-AppCli.prototype.loadDAL = function (file) {
+_proto.loadDAL = function (file) {
   this.data = JSONio.loadJSONSync(path.join(fromDir, _DALRELATIVEPATH));
   return this
 };
 
-AppCli.prototype.findUpAndLoadDAL = function (fromDir) {
+_proto.findUpAndLoadDAL = function (fromDir) {
   var _DALRELATIVEPATH = this.DALRELATIVEPATH;
 
   var dalPath, data, fromDir = fromDir || process.cwd(), _fromDir;
@@ -68,7 +70,7 @@ AppCli.prototype.findUpAndLoadDAL = function (fromDir) {
   return this;
 };
 
-AppCli.prototype.initAsync = function (options, callback) {
+_proto.initAsync = function (options, callback) {
   options = options || {};
   this.cwd = options.cwd || process.cwd();
 
@@ -81,11 +83,16 @@ AppCli.prototype.initAsync = function (options, callback) {
 };
 
 // @@ Export
-exports.AppCli = AppCli;
+exports.Class = Class;
+
+exports.create = function () {
+  return new this.Class();
+};
+
 exports.initAsync = function (...args) {
   var callback = args.pop();
   var options = args.pop();
 
-  var appCli = new AppCli();
-  return appCli.initAsync(options, callback);
+  var obj = this.create();
+  return obj.initAsync(options, callback);
 };

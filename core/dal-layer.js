@@ -4,12 +4,16 @@ const { isString } = require('./helper/string-helper');
 
 
 // @@ Main class
-var Class = function DALLayer () {
+const Class = function DALLayer () {
   this.path = null;
   this.key = null;
 };
 
-Class.prototype.load = function (payload) {
+const _proto = Class.prototype;
+
+
+// @@ class's functions
+_proto.load = function (payload) {
 
   if (isString(payload)) {
     this.path = payload;
@@ -27,7 +31,7 @@ Class.prototype.load = function (payload) {
   return this;
 };
 
-Class.prototype.init = function (payload) {
+_proto.init = function (payload) {
   if (payload instanceof Class) return payload;
   return this.load(payload);
 };
@@ -35,13 +39,16 @@ Class.prototype.init = function (payload) {
 
 // @@ Export
 exports.Class = Class;
+
 exports.create = function () {
   return new this.Class();
 };
+
 exports.init = function (...args) {
   var obj = this.create();
   return obj.init.apply(obj, args);
 };
+
 exports.massInit = function (payloads) {
   return payloads.map(this.init, this);
 };
