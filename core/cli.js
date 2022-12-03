@@ -6,7 +6,7 @@ const JSONio = require('./helper/json-io')
 
 
 
-// @@ Main App
+// @@ Main AppCli
 const AppCli = function () {
 };
 AppCli.prototype.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";

@@ -15,14 +15,17 @@ App.prototype.logError = function () {
   console.error.apply(null, arguments)
 };
 
-// @@ Load DAL File
-App.prototype.initAsync = function (file, callback) {
+// @@ Load DAL
+App.prototype.init = function (payload) {
+  this.dal = DALHandler.init(payload);
+  return this;
+};
 
+App.prototype.initAsync = function (file, callback) {
   DALHandler.initAsync(file, (dalHandler) => {
     this.dal = dalHandler;
     callback(this);
   });
-
 };
 
 

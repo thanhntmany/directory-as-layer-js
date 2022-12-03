@@ -6,6 +6,7 @@ const DALLayer = require('./dal-layer');
 // @@ Main class
 var DALLayerStack = function () {
   this.anchorDir = null;
+  this.exclude = [];
   this.layers = [];
   this._key = {};
 };
@@ -32,6 +33,7 @@ DALLayerStack.prototype.loadLayers = function (rawLayers) {
 
 DALLayerStack.prototype.init = function (payload) {
   this.anchorDir = payload.anchorDir || process.cwd();
+  this.exclude = payload.exclude || [];
   this.loadLayers(payload.layers);
 
   return this;
