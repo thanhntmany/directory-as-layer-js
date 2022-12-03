@@ -33,12 +33,12 @@ _proto.splice = function (start, deleteCount, ...layerPayloads) {
 _proto.refresh_key = function () {
 
   var _this = this;
-  this.stack.forEach(dalLayer => {
-    if (isString(dalLayer.key) && isNaN(dalLayer.key)) _this._key[dalLayer.key] = dalLayer;
+  this.stack.forEach((dalLayer, index) => {
+    if (isString(dalLayer.key) && isNaN(dalLayer.key)) _this._key[dalLayer.key] = index;
   });
 
   // The 'base' key is always point to the first layer.
-  this._key['base'] = this.stack[0];
+  this._key['base'] = 0;
 };
 
 _proto.loadLayers = function (layersPayload) {
