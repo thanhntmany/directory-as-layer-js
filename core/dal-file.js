@@ -1,11 +1,12 @@
 'use strict';
 const { dirname, join } = require('path');
 const JSONio = require('./helper/json-io')
+const { isString } = require('./helper/string-helper');
 
 
 // Error
 function DALFileNotFound(...args) {
-  this.action = args.pop() || 'Error in DALFileHandler';
+  this.action = args.pop() || "Error in DALFileHandler";
   this.message = args.pop();
   this.code = 'DALFileNotFound';
   console.trace('DALFileNotFound');
@@ -32,10 +33,6 @@ _proto.load = function (file) {
   this.file = file;
   return this
 };
-
-// #TODO:
-_proto.save = function (file) {};
-_proto.saveTo = function (file) {};
 
 _proto.findUpAndLoadDALFromDir = function (fromDir) {
   var _DALRELATIVEPATH = this.DALRELATIVEPATH;
@@ -65,6 +62,20 @@ _proto.findUpAndLoadDALFromDir = function (fromDir) {
   return this;
 };
 
+// #TODO:
+_proto.save = function (file) {};
+_proto.saveTo = function (file) {};
+
+_proto.standardize = function() {
+
+  // In case attribute '.file' is a path.
+  if (isString(this.file)) {
+    // Make sure the 'path' of Class is always an absolute path.
+    // NOTE: The relative path is resolved base on the current working directory.
+    if (!path.isAbsolute(this.path)) this.path = path.resolve(this.path);
+  };
+
+};
 
 // @@ Export
 exports.Class = Class;

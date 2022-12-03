@@ -1,12 +1,10 @@
 'use strict';
-const path = require('path');
-const DALLayerStack = require('./dal-layer-stack');
-const JSONio = require('./helper/json-io')
+const DALStack = require('./dal-stack');
 
 
 // @@ Main class
 const Class = function DALHandler() {
-  this.stack = DALLayerStack.create();
+  this.stack = DALStack.create();
 };
 
 const _proto = Class.prototype;

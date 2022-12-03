@@ -4,9 +4,9 @@ const DALLayer = require('./dal-layer');
 
 
 // @@ Main class
-const Class = function DALLayerStack() {
+const Class = function DALStack() {
   this.exclude = [];
-  this.layers = [];
+  this.stack = [];
   this._key = {};
 };
 
@@ -17,18 +17,18 @@ const _proto = Class.prototype;
 _proto.refresh_key = function () {
 
   var _this = this;
-  this.layers.forEach(dalLayer => {
+  this.stack.forEach(dalLayer => {
     if (isString(dalLayer.key) && isNaN(dalLayer.key)) _this._key[dalLayer.key] = dalLayer;
   });
 
   // The 'base' key is always point to the first layer.
-  this._key['base'] = this.layers[0];
+  this._key['base'] = this.stack[0];
 };
 
 _proto.loadLayers = function (payloads) {
   if (!Array.isArray(payloads)) payloads = [];
 
-  this.layers = DALLayer.massInit(payloads);
+  this.stack = DALLayer.massInit(payloads);
   this.refresh_key();
 
   return this;
@@ -36,7 +36,7 @@ _proto.loadLayers = function (payloads) {
 
 _proto.init = function (payload) {
   this.exclude = payload.exclude || [];
-  this.loadLayers(payload.layers);
+  this.loadLayers(payload.stack);
 
   return this;
 };
@@ -44,17 +44,17 @@ _proto.init = function (payload) {
 
 // @ Modify stack
 _proto.insert = function (...layerPayloads) {
-  this.layers.push.apply(this.layers, DALLayer.massInit(layerPayloads));
+  this.stack.push.apply(this.stack, DALLayer.massInit(layerPayloads));
   return this;
 };
 
 _proto.insertAt = function (index, ...layerPayloads) {
-  this.layers.splice.apply(this.layers, [index, 0].concat(DALLayer.massInit(layerPayloads)));
+  this.stack.splice.apply(this.stack, [index, 0].concat(DALLayer.massInit(layerPayloads)));
   return this;
 };
 
 _proto.splice = function (start, deleteCount, ...layerPayloads) {
-  return this.layers.splice.apply(this.layers, [start, deleteCount].concat(DALLayer.massInit(layerPayloads)));
+  return this.stack.splice.apply(this.stack, [start, deleteCount].concat(DALLayer.massInit(layerPayloads)));
 };
 
 
