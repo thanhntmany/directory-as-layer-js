@@ -5,14 +5,14 @@ const JSONio = require('./helper/json-io')
 
 
 // @@ Main AppCli
-const Class = function AppCli () {
+const Class = function AppCli() {
 };
 
 const _proto = Class.prototype;
 
 
 _proto.DALRELATIVEPATH = exports.DALRELATIVEPATH = ".dal.json";
-var DALNotFound                  = exports.DALNotFound     = function(message) {
+exports.DALNotFound = function DALNotFound(message) {
   this.message = message;
   this.code = 'DALNotFound';
   this.action = 'findUpAndLoadDAL';

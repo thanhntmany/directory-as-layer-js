@@ -4,7 +4,7 @@ const { isString } = require('./helper/string-helper');
 
 
 // @@ Main class
-const Class = function DALLayer () {
+const Class = function DALLayer() {
   this.path = null;
   this.key = null;
 };

@@ -5,7 +5,7 @@ const JSONio = require('./helper/json-io')
 
 
 // @@ Main class
-const Class = function DALHandler () {
+const Class = function DALHandler() {
   this.anchorDir = null;
   this.stack = DALLayerStack.create();
 };
@@ -22,8 +22,8 @@ _proto.loadDAL = function (payload) {
 _proto.loadDALFileAsync = function (file, callback) {
   if (typeof callback !== 'function') callback = () => { };
 
-    // #TODO: process err
-    JSONio.loadJSONAsync(file, (err, payload) => {
+  // #TODO: process err cases
+  JSONio.loadJSONAsync(file, (err, payload) => {
 
     if (!payload.anchorDir) payload.anchorDir = path.dirname(path.resolve(file));
     this.loadDAL(payload);
