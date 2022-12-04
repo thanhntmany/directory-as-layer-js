@@ -1,5 +1,6 @@
 'use strict';
 const AppCore = require("./app-core");
+const DALBaseHandler = require("./dal-base-handler");
 
 
 // @@ Main Class
@@ -24,12 +25,17 @@ _proto.init = function (options) {
   options = options || {};
   this.cwd = options.cwd || process.cwd();
 
+  this.dalBase = DALBaseHandler.initFromDescendant(this.cwd);
+  // this.dalBase = DALBaseHandler.initializeNewBaseAtDir(this.cwd);
+
+  console.log(this.dalBase);
   // #TODO: try-catch, if DALFileNotFound
   // this.dalFile = DalFile.findUpAndLoadDALFromDir(this.cwd);
-  this.appCore = AppCore.initInDir(this.cwd);
+  // this.appCore = AppCore.initInDir(this.cwd);
 
   return this;
 };
+
 
 // @@ Export
 exports.Class = Class;

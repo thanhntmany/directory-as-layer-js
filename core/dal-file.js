@@ -122,6 +122,7 @@ _proto.findUpAndLoadDALFromDir = function (fromDir) {
   return this;
 };
 
+
 // @@ Export
 exports.Class = Class;
 exports.Constant = Constant;
