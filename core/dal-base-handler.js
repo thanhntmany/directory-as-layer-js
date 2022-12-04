@@ -14,17 +14,11 @@ exports.constant = {
 // error
 exports.error = {};
 exports.error.ERR_FAILED_TO_CONNECT_BASE_DIR = function ERR_FAILED_TO_CONNECT_BASE_DIR(payload) {
-  this.code = 'ERR_FAILED_TO_CONNECT_BASE_DIR';
+  this.code = this.constructor.name;
   this.payload = payload;
 };
-
-const ERR_FAILED_TO_CONNECT_BASE_DIR = function (payload) {
-  this.code = 'ERR_FAILED_TO_CONNECT_BASE_DIR';
-  this.payload = payload;
-};
-
-const ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR = function (payload) {
-  this.code = 'ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR';
+exports.error.ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR = function ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR(payload) {
+  this.code = this.constructor.name;
   this.payload = payload;
 };
 
@@ -83,7 +77,10 @@ _proto.init = function (payload) {
 };
 
 _proto.initializeNewBaseAtDir = function (dirPath) {
-  // if (!isDirectory(dirPath)) throw new 
+  if (!isDirectory(dirPath)) throw new ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR({
+    'dirPath': dirPath,
+    'msg': "It's not a valid directory path"
+  });
 
   try {
     return this.connectBaseDir(dirPath);
