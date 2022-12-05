@@ -1,7 +1,6 @@
 'use strict';
-const { statSync, mkdirSync } = require('fs');
-const { dirname, join } = require('path');
-const { isString } = require('./helper/string-helper');
+const { mkdirSync } = require('fs');
+const { dirname, isAbsolute, join, resolve } = require('path');
 const { isDirectory } = require('./helper/fs-helper');
 
 
@@ -49,7 +48,7 @@ _proto.connectBaseDir = function (path) {
 };
 
 _proto.findBaseFromDescendantUp = function (fromPath) {
-  if (!isString(fromPath)) return undefined;
+  if (isAbsolute(fromPath)) fromPath = resolve(fromPath);
 
   var last;
   do {

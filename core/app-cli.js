@@ -94,6 +94,8 @@ _proto.run = function () {
 };
 
 _proto.exec = function (argv) {
+  this.initDalBase()
+
   return this.parse(argv).run();
 };
 
