@@ -3,7 +3,8 @@ const path = require('path');
 const AppCli = require('./core/app-cli');
 const JSONio = require('./core/helper/json-io')
 
-const appCli = AppCli.init();
+
+
 // console.dir(appCli, {"depth": null});
 
 // console.clear();
@@ -33,3 +34,7 @@ const appCli = AppCli.init();
 // console.log("   * |   |   | * |   16      ├─ asdasd ");
 // console.log("  <N>|   |   | * |   17      └─ asdasd ");
 // console.log("");
+
+const appCli = AppCli.init().exec(process.argv.slice(2));
+
+console.dir(appCli, {"depth": null});
