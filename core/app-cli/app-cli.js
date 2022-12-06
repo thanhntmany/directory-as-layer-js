@@ -33,7 +33,8 @@ proto_.getOptionHandler = function (key) {
     return cache_[key] = require("./customOption/" + key);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      return require("./customOption/none");
+      var loadedModule = require("./command/none")
+      return cache_[loadedModule.cmdName] = loadedModule;
     }
     else throw error;
   };
@@ -51,7 +52,8 @@ proto_.getCommandHandler = function (key) {
     return cache_[key] = require("./command/" + key);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      return require("./command/none");
+      var loadedModule = require("./command/none")
+      return cache_[loadedModule.cmdName] = loadedModule;
     }
     else throw error;
   };
@@ -132,22 +134,12 @@ proto_.exec = function (args) {
 };
 
 proto_.run = function () {
+
   return this;
 };
 
 
 // @@ Export
-exports.optionAlias = {
-  h: "help",
-  v: "version",
-  l: "list",
-  o: "output",
-  q: "quiet",
-  r: "recursive",
-  V: "verbose",
-  f: "force"
-};
-
 exports.Class = Class;
 
 exports.create = function () {
