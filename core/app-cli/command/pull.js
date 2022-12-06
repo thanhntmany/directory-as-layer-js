@@ -20,3 +20,7 @@ exports.exec = function(restArg, cToken, appCli) {
   console.log("running Ls");
   return restArg;
 };
+
+exports.exec = function (commandOption, appCli) {
+  return {};
+};
