@@ -37,6 +37,23 @@ proto_.getOptionHandler = function (key) {
 
 };
 
+proto_.getCommandHandler = function (key) {
+  var cache_ = this.cliData.commandHandler
+  if (key in cache_) {
+    return cache_[key];
+  };
+
+  try {
+    return cache_[key] = require("./command/" + key);
+  } catch (error) {
+    if (error.code === 'MODULE_NOT_FOUND') {
+      return require("./command/none");
+    }
+    else throw error;
+  };
+
+};
+
 proto_.parse = function (args) {
   /*
     dal
@@ -88,11 +105,12 @@ proto_.parse = function (args) {
 
   };
 
+  var cmdName;
   while ((token = restArg_.shift()) !== undefined) {
+    cmdName = token;
     // command parsing
-    // ......
     this.cliData.commandArray.push(
-      token
+      this.getCommandHandler(cmdName).parse({}, cmdName, null, restArg_)
     );
   };
 

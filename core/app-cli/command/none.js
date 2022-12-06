@@ -1,10 +1,14 @@
 'use strict';
+const { basename } = require('path');
 
 
 // @@ Export
+exports.cmdName = basename(__filename);
+
 exports.parse = function (outOpt_, cKey, cValue, restArg_, restToken) {
-  cKey = 'beeep';
-  outOpt_[cKey] = restToken;
+  outOpt_.cmdName = 'none';
+  outOpt_.cmdNameRaw = cKey;
+  outOpt_.ex = restArg_.shift();
 
   return outOpt_
 };
