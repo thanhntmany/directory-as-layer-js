@@ -9,6 +9,11 @@ exports.parse = function (outOpt_, cKey, cValue, restArg_, restToken) {
   outOpt_.cmdName = 'none';
   outOpt_.cmdNameRaw = cKey;
 
+  var noOption = restArg_.findIndex(token => !token.startsWith("-"));
+  if (noOption > 0) {
+    outOpt_.rawOptions = restArg_.splice(0, noOption)
+  };
+
   return outOpt_
 };
 
