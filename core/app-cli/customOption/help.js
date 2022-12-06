@@ -1,22 +1,20 @@
 'use strict';
+const { basename } = require('path');
 
-exports.cmdName = module.filename;
 
-exports.parse = function(restArgArray, option, cToken, cKey, cValue) {
-  return {
-    cmdName: exports.cmdName,
-    hint: "paring resoult"
-  };
+// @@ Export
+exports.cmdName = basename(__filename);
+
+exports.parse = function(outOpt_, cKey, cValue, restArg_, restToken) {
+  cKey = 'help';
+  outOpt_[cKey] = cValue;
+
+  // In case shortopts:
+  if (restToken !== undefined) restArg_.unshift("-" + restToken);;
+
+  return outOpt_
 };
 
-exports.compgen = function(restArgArray, appCli, cToken, cKey, cValue) {
-  return {
-    cmdName: exports.cmdName,
-    hint: "sssss"
-  };
-};
-
-exports.exec = function(restArgArray, appCli, cToken, cKey, cValue) {
-  console.log("running Ls");
-  return restArgArray;
+exports.compgen = function(outOpt_, restArg_, appCli, restToken, cKey, cValue) {
+  return {};
 };

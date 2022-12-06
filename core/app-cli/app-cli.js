@@ -1,4 +1,5 @@
 'use strict';
+const customOption = require("./customOption");
 
 
 // @@ Main Class
@@ -22,6 +23,7 @@ proto_.init = function (option) {
 
 proto_.getOptionHandler = function (key) {
   var cache_ = this.cliData.optionHandler
+  if (key in customOption.alias) key = customOption.alias[key];
   if (key in cache_) {
     return cache_[key];
   };
@@ -132,6 +134,17 @@ proto_.run = function () {
 
 
 // @@ Export
+exports.optionAlias = {
+  h: "help",
+  v: "version",
+  l: "list",
+  o: "output",
+  q: "quiet",
+  r: "recursive",
+  V: "verbose",
+  f: "force"
+};
+
 exports.Class = Class;
 
 exports.create = function () {
