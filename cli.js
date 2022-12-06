@@ -4,38 +4,6 @@ const AppCli = require('./core/app-cli/app-cli');
 const JSONio = require('./core/helper/json-io')
 
 
-
-  /*
-  -h
-  --help
-
-  -v
-  --version
-
-  -a
-  --all
-  # show all information or operate on all arguments.
-
-  -l
-  --list
-
-  -o
-  output
-
-  -q
-  --quiet
-
-  -r
-  -R
-  --recursive
-
-  -V
-  --verbose
-
-  -f
-  --force
-  */
-
 // console.dir(appCli, {"depth": null});
 
 // console.clear();
