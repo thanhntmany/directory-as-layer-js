@@ -8,15 +8,15 @@ const Class = function DALAppCli() {
   this.commandArray = [];
 };
 
-const _proto = Class.prototype;
+const proto_ = Class.prototype;
 
 
 // @@ Functions
-_proto.init = function (option) {
+proto_.init = function (option) {
   return this;
 };
 
-_proto.parse = function (args) {
+proto_.parse = function (args) {
   /*
     dal
     [runtimeOption]      : Always starts with "-"
@@ -81,17 +81,17 @@ _proto.parse = function (args) {
   return this;
 };
 
-_proto.compgen = function (restArg) {
+proto_.compgen = function (restArg) {
   this.parse(restArg);
 
 };
 
-_proto.exec = function (args) {
+proto_.exec = function (args) {
   this.parse(args);
   return this.run();
 };
 
-_proto.run = function () {
+proto_.run = function () {
   return this;
 };
 

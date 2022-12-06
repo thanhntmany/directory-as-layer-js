@@ -27,19 +27,19 @@ const Class = function DALBase() {
   this.baseDirPath = null;
 };
 
-const _proto = Class.prototype;
+const proto_ = Class.prototype;
 
 
 // @@ class.constant
-_proto.ANCHOR_BASENAME = exports.constant.ANCHOR_BASENAME;
+proto_.ANCHOR_BASENAME = exports.constant.ANCHOR_BASENAME;
 
 
 // @@ function
-_proto.isBaseDir = function (path) {
+proto_.isBaseDir = function (path) {
   return isDirectory(join(path, this.ANCHOR_BASENAME));
 };
 
-_proto.connectBaseDir = function (path) {
+proto_.connectBaseDir = function (path) {
   if (this.isBaseDir(path)) {
     this.baseDirPath = path;
     return this;
@@ -47,7 +47,7 @@ _proto.connectBaseDir = function (path) {
   else throw new ERR_FAILED_TO_CONNECT_BASE_DIR({ "path": path });
 };
 
-_proto.findBaseFromDescendantUp = function (fromPath) {
+proto_.findBaseFromDescendantUp = function (fromPath) {
   if (isAbsolute(fromPath)) fromPath = resolve(fromPath);
 
   var last;
@@ -62,20 +62,20 @@ _proto.findBaseFromDescendantUp = function (fromPath) {
   return undefined;
 };
 
-_proto.connectBaseFromDescendantUp = function (fromDir) {
+proto_.connectBaseFromDescendantUp = function (fromDir) {
   var baseDirPath = this.findBaseFromDescendantUp(fromDir);
   if (!baseDirPath) throw new ERR_FAILED_TO_CONNECT_BASE_DIR({ "fromDescendantPath": path });
 
   return this.connectBaseDir(baseDirPath);
 };
 
-_proto.init = function (payload) {
+proto_.init = function (payload) {
   if (payload instanceof this.constructor) return payload;
 
   return this;
 };
 
-_proto.initializeNewBaseAtDir = function (dirPath) {
+proto_.initializeNewBaseAtDir = function (dirPath) {
   if (!isDirectory(dirPath)) throw new ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR({
     'dirPath': dirPath,
     'msg': "It's not a valid directory path"

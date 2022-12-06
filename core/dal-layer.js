@@ -8,17 +8,17 @@ const Class = function DALLayer() {
   this.path = null;
 };
 
-const _proto = Class.prototype;
+const proto_ = Class.prototype;
 
 
 // @@ function
-_proto.load = function (payload) {
+proto_.load = function (payload) {
   this.path = payload.path;
   if (isString(payload.key)) this.key = payload.key;
   return this;
 };
 
-_proto.init = function (payload) {
+proto_.init = function (payload) {
   if (payload instanceof Class) return payload;
   return this.load(payload);
 };

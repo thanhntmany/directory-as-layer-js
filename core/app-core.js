@@ -7,28 +7,28 @@ const DALHandler = require('./dal');
 const Class = function DALAppCore () {
 };
 
-const _proto = Class.prototype;
+const proto_ = Class.prototype;
 
 
 // @@ logging
-_proto.log = function () {
+proto_.log = function () {
   console.log.apply(null, arguments)
 };
 
-_proto.logError = function () {
+proto_.logError = function () {
   console.error.apply(null, arguments)
 };
 
 
 // @@ functions
-_proto.loadDAL = function (payload) {
+proto_.loadDAL = function (payload) {
   this.dal = DALHandler.init(payload);
   return this;
 };
 
-_proto.init = _proto.loadDAL;
+proto_.init = proto_.loadDAL;
 
-_proto.initInDir = function (dirPath) {
+proto_.initInDir = function (dirPath) {
   // dalFile must be standardized before processing.
   this.dalFile = DalFile.findUpAndLoadDALFromDir(dirPath).standardize();
   this.loadDAL(this.dalFile.payload);

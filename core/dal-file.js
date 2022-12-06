@@ -32,15 +32,15 @@ const Class = function DALFileHandler() {
   this.file = null;
 };
 
-const _proto = Class.prototype;
+const proto_ = Class.prototype;
 
 
 // @@ Class's Constants
-_proto.DALRELATIVEPATH = Constant.DALRELATIVEPATH;
+proto_.DALRELATIVEPATH = Constant.DALRELATIVEPATH;
 
 
 // @@ functions
-_proto.standardize = function () {
+proto_.standardize = function () {
 
   // In case attribute '.file' is a path.
   if (isString(this.file)) {
@@ -77,10 +77,10 @@ _proto.standardize = function () {
   return this
 };
 
-_proto.save = function (file) { };// #TODO
-_proto.saveTo = function (file) { };// #TODO
+proto_.save = function (file) { };// #TODO
+proto_.saveTo = function (file) { };// #TODO
 
-_proto.load = function (file) {
+proto_.load = function (file) {
   try {
     this.payload = JSONio.loadJSON(file);
     // If loadJSON throws error, the process will break here, 'payload' and 'file' attribute won't be changed.
@@ -94,11 +94,11 @@ _proto.load = function (file) {
   };
 };
 
-_proto.loadDALOfDirectory = function (dirPath) {
+proto_.loadDALOfDirectory = function (dirPath) {
   return this.load(join(dirPath, this.DALRELATIVEPATH))
 };
 
-_proto.findUpAndLoadDALFromDir = function (fromDir) {
+proto_.findUpAndLoadDALFromDir = function (fromDir) {
 
   var _fromDir;
   while (!this.payload) {
