@@ -3,9 +3,13 @@
 
 // @@ Main Class
 const Class = function DALAppCli() {
-  this.restArg = [];
-  this.option = {};
-  this.commandArray = [];
+  this.cliData = {
+    restArg: [],
+    option: {},
+    optionHandler: {},
+    commandArray: [],
+    commandHandler: {}
+  };
 };
 
 const proto_ = Class.prototype;
@@ -16,18 +20,35 @@ proto_.init = function (option) {
   return this;
 };
 
+proto_.getOptionHandler = function (key) {
+  var cache_ = this.cliData.optionHandler
+  if (key in cache_) {
+    return cache_[key];
+  };
+
+  try {
+    return cache_[key] = require("./customOption/" + key);
+  } catch (error) {
+    if (error.code === 'MODULE_NOT_FOUND') {
+      return require("./customOption/none");
+    }
+    else throw error;
+  };
+
+};
+
 proto_.parse = function (args) {
   /*
     dal
     [runtimeOption]      : Always starts with "-"
 
-    Sequense of commandArray (separate by "--" if needed)
+    Sequense of number of commandArray (separate by "--" if needed)
     <command>      : Does not start with "-"
     [command args] : Placed after command (the rest)
 
   */
-  var restArg_ = this.restArg = Array.isArray(args) ? args.slice() : [];
-
+  var restArg_ = this.cliData.restArg = Array.isArray(args) ? args.slice() : [],
+    option_ = this.cliData.option;
   var token, key, value;
 
   // parse runtimeOption
@@ -41,10 +62,9 @@ proto_.parse = function (args) {
       token = token.split("=", 2);
       key = token[0];
       value = token[1];
+      if (value === undefined) value = true;
 
-      // outOpt, restArg, appCli, restToken, cKey, cValue
-      this.option[key] = value !== undefined ? value : true;
-
+      this.getOptionHandler(key).parse(option_, key, value, restArg_);
       continue;
     }
 
@@ -56,13 +76,11 @@ proto_.parse = function (args) {
       key = token.charAt(0);
       token = token.slice(1);
 
-      // _outputOption <-- restArg, appCli, restToken, cKey, cValue
-      this.option[key] = true;
-      restArg_.unshift("-" + token);
-
+      this.getOptionHandler(key).parse(option_, key, true, restArg_, token);
       continue;
     }
 
+    // command
     else {
       restArg_.unshift(token);
       break; // jump to parse the rest arguments into commandArray
@@ -73,7 +91,7 @@ proto_.parse = function (args) {
   while ((token = restArg_.shift()) !== undefined) {
     // command parsing
     // ......
-    this.commandArray.push(
+    this.cliData.commandArray.push(
       token
     );
   };
@@ -83,7 +101,6 @@ proto_.parse = function (args) {
 
 proto_.compgen = function (restArg) {
   this.parse(restArg);
-
 };
 
 proto_.exec = function (args) {
