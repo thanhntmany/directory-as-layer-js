@@ -1,10 +1,8 @@
 'use strict';
-const { basename, resolve } = require('path');
+const { resolve } = require('path');
 
 
 // @@ Export
-exports.cmdName = basename(__filename, ".js");
-
 exports.parse = function(outOpt_, cKey, cValue, restArg_, restToken) {
   outOpt_[cKey] = resolve(cValue);
 

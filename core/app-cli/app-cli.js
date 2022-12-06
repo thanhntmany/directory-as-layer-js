@@ -8,9 +8,11 @@ const Class = function DALAppCli() {
   this.cliData = {
     restArg: [],
     option: {},
-    optionHandler: {},
     commandArray: [],
-    commandHandler: {}
+  };
+  this.cache = {
+    optionHandler: {},
+    commandHandler: {},
   };
 };
 
@@ -23,7 +25,7 @@ proto_.init = function (option) {
 };
 
 proto_.getOptionHandler = function (key) {
-  var cache_ = this.cliData.optionHandler
+  var cache_ = this.cache.optionHandler
   if (key in customOption.alias) key = customOption.alias[key];
   if (key in cache_) {
     return cache_[key];
@@ -33,7 +35,7 @@ proto_.getOptionHandler = function (key) {
     return cache_[key] = require("./customOption/" + key);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      var loadedModule = require("./command/none")
+      var loadedModule = require("./customOption/none")
       return cache_[loadedModule.cmdName] = loadedModule;
     }
     else throw error;
@@ -42,7 +44,7 @@ proto_.getOptionHandler = function (key) {
 };
 
 proto_.getCommandHandler = function (key) {
-  var cache_ = this.cliData.commandHandler
+  var cache_ = this.cache.commandHandler
   if (key in customCommand.alias) key = customCommand.alias[key];
   if (key in cache_) {
     return cache_[key];
@@ -125,10 +127,15 @@ proto_.parse = function (args) {
 };
 
 proto_.compgen = function (restArg) {
-  this.parse(restArg);
+  return this.parse(restArg);
 };
 
 proto_.exec = function (args) {
+  // If commandline end with "\?", break executing and switch to compgen mode.
+  if (args[args.length - 1].endsWith("?")) {
+    return this.compgen(args);
+  };
+
   this.parse(args);
   return this.run();
 };
