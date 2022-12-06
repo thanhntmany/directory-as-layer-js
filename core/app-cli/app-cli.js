@@ -1,5 +1,6 @@
 'use strict';
-const customOption = require("./customOption");
+const customOption = require("./customOption/__custom");
+const customCommand = require("./command/__custom");
 
 
 // @@ Main Class
@@ -41,6 +42,7 @@ proto_.getOptionHandler = function (key) {
 
 proto_.getCommandHandler = function (key) {
   var cache_ = this.cliData.commandHandler
+  if (key in customCommand.alias) key = customCommand.alias[key];
   if (key in cache_) {
     return cache_[key];
   };
