@@ -3,6 +3,7 @@
 
 // @@ Export
 exports.parse = function (outOpt_, cKey, cValue, restArg_, restToken) {
+  console.log(cKey);
   outOpt_[cKey] = cValue;
 
   // In case shortopts:

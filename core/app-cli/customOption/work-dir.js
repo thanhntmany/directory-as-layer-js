@@ -1,13 +1,12 @@
-// #TODO: This's just a test module, it affects to processsing all "-b..." runtimeOption
 'use strict';
-const { basename } = require('path');
+const { basename, resolve } = require('path');
 
 
 // @@ Export
-exports.cmdName = basename(__filename);
+exports.cmdName = basename(__filename, ".js");
 
 exports.parse = function(outOpt_, cKey, cValue, restArg_, restToken) {
-  outOpt_[cKey] = restToken;
+  outOpt_[cKey] = resolve(cValue);
 
   return outOpt_
 };
