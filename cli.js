@@ -36,4 +36,4 @@ const JSONio = require('./core/helper/json-io')
 
 const appCli = AppCli.exec(process.argv.slice(2));
 
-console.dir(appCli.cliData, {"depth": null});
+// console.dir(appCli, {"depth": null});

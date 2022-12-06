@@ -22,5 +22,6 @@ exports.compgen = function (outOpt_, restArg_, appCli, restToken, cKey, cValue) 
 };
 
 exports.exec = function (commandOption, appCli) {
-  return {};
+  console.log("-> Running NONE: " + commandOption.cmdName)
+  console.log("Running RAW : " + commandOption.cmdNameRaw)
 };

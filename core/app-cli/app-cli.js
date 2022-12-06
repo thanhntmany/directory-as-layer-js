@@ -5,15 +5,18 @@ const customCommand = require("./command/__custom");
 
 // @@ Main Class
 const Class = function DALAppCli() {
+
   this.cliData = {
     restArg: [],
     option: {},
     commandArray: [],
   };
+
   this.cache = {
     optionHandler: {},
     commandHandler: {},
   };
+
 };
 
 const proto_ = Class.prototype;
@@ -137,10 +140,20 @@ proto_.exec = function (args) {
   };
 
   this.parse(args);
-  return this.run();
+  return this.run(this.cliData);
 };
 
-proto_.run = function () {
+proto_.run = function (cliData) {
+  console.log(cliData);
+
+  // Processing cli option
+
+
+  // Execite command
+  var cmd;
+  while ((cmd = cliData.commandArray.shift()) !== undefined) {
+    this.getCommandHandler(cmd.cmdName).exec(cmd, this);
+  };
 
   return this;
 };
