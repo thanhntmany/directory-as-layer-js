@@ -108,7 +108,7 @@ proto_.parse = function (args) {
   };
 
   var cmdName;
-  // This mechanism make able to input a sequence of many commands.
+  // This mechanism make user being able to input a sequence of many commands.
   while ((token = restArg_.shift()) !== undefined) {
     cmdName = token;
     // command parsing
