@@ -23,7 +23,7 @@ exports.error.ERR_FAILED_TO_INITIALIZE_NEW_BASE_DIR = function ERR_FAILED_TO_INI
 
 
 // main class
-const Class = function DALBaseHandler() {
+const Class = function DALBase() {
   this.baseDirPath = null;
 };
 

@@ -1,9 +1,40 @@
 'use strict';
 const path = require('path');
-const AppCli = require('./core/app-cli');
+const AppCli = require('./core/app-cli/app-cli');
 const JSONio = require('./core/helper/json-io')
 
 
+
+  /*
+  -h
+  --help
+
+  -v
+  --version
+
+  -a
+  --all
+  # show all information or operate on all arguments.
+
+  -l
+  --list
+
+  -o
+  output
+
+  -q
+  --quiet
+
+  -r
+  -R
+  --recursive
+
+  -V
+  --verbose
+
+  -f
+  --force
+  */
 
 // console.dir(appCli, {"depth": null});
 
@@ -35,6 +66,6 @@ const JSONio = require('./core/helper/json-io')
 // console.log("  <N>|   |   | * |   17      └─ asdasd ");
 // console.log("");
 
-const appCli = AppCli.init().exec(process.argv.slice(2));
+const appCli = AppCli.exec(process.argv.slice(2));
 
 console.dir(appCli, {"depth": null});
