@@ -1,5 +1,9 @@
 # directory-as-layer-js
 
+This project is in deverloping stage.
+
+I am not a native English speaker. Please inform me if you find any broken English.
+
 ## #TODO:
 
 * [ ] dal select .. pin-to ...
