@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
-const AppCli = require('./core/app-cli/app-cli');
-const JSONio = require('./core/helper/json-io')
+const AppCli = require('./app-cli/app-cli');
+const JSONio = require('./helper/json-io')
 
 
 // console.dir(appCli, {"depth": null});

@@ -1,6 +1,6 @@
 'use strict';
 const customOption = require("./customOption/__custom");
-const customCommand = require("../command/__custom");
+const customCommand = require("./command/__custom");
 
 
 // @@ Main Class
@@ -57,7 +57,7 @@ proto_.getCommandHandler = function (key) {
     return cache_[key] = require("../command/" + key);
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
-      var loadedModule = require("../command/none")
+      var loadedModule = require("./command/none")
       return cache_[loadedModule.cmdName] = loadedModule;
     }
     else throw error;

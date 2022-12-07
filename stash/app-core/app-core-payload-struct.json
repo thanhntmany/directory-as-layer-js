@@ -1,0 +1,24 @@
+{
+  "option": {
+    "sessionFilePath": "path to session file",
+    "cwd": "path to working dir"
+  },
+  "commandArray": [
+    {
+      "cmdName": "none",
+      "cmdNameRaw": "aa"
+    },
+    {
+      "cmdName": "none",
+      "cmdNameRaw": "ls"
+    },
+    {
+      "cmdName": "none",
+      "cmdNameRaw": "sc"
+    },
+    {
+      "cmdName": "none",
+      "cmdNameRaw": "1234567as"
+    }
+  ]
+}

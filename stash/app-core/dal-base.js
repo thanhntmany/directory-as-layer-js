@@ -99,6 +99,12 @@ proto_.initializeNewBaseAtDir = function (dirPath) {
 };
 
 
+// @@ For internal session
+proto_.getInternalSessionPath = function () {
+  return "";
+};
+
+
 // @@ export
 exports.Class = Class;
 
