@@ -25,6 +25,6 @@ exports.clearCache = function () {
 
 
 // @@ function
-exports.execCommand = function (cmd, payload, app) {
-  return this.get(cmd).exec(payload, app)
+exports.execCommand = function (cmd, payload, coreApp) {
+  return this.get(cmd).exec(payload, coreApp);
 };
