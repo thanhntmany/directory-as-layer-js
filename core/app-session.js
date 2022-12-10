@@ -2,6 +2,7 @@
 
 
 const Class = module.exports = function DALAppCoreSession(payload) {
+  console.log("@@ Init Session.");
   this.data = payload || {};
   this.file = null;
 
@@ -24,8 +25,13 @@ proto_.loadFromPath = function (file) {
 };
 
 proto_.saveToPath = function (file) {
+  console.log("@@ Persit Session.");
   // #TODO:
   file = this.file || file;
   console.log(this.data);
   return this;
+};
+
+proto_.save = function () {
+  return this.saveToPath(this.file);
 };

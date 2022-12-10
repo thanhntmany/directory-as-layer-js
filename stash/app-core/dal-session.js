@@ -18,7 +18,6 @@ proto_.initFromPathIfExists = function (file) {
   return this.init(payload);
 };
 
-
 proto_.init = function (payload) {
   this.data = payload || {};
   return this;

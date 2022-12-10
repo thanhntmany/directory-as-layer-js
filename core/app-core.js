@@ -1,13 +1,12 @@
 'use strict';
-const Session = require("./app-core-session");
+const Session = require("./app-session");
 const CmdHandler = require("./command/handler");
 
 
-const Class = module.exports = function DALAppCore(payload) {
+const Class = module.exports = function DALAppCore() {
 
-  // session
-  this.data = (this.sessionHandler = new Session(payload)).getDataPointer();
-
+  // pure JS object to be able to use session
+  this.option = {};
   // current runtime
   this.commandArray = [
     { cmd: "ls" },
@@ -31,6 +30,11 @@ proto_.logError = function () {
 
 
 // @@ function
+proto_.initSession = function () {
+  this.option = (this.sessionHandler = new Session(this.option)).getDataPointer();
+  return this;
+};
+
 proto_.execCommand = function (cmdPayload) {
   return CmdHandler.execCommand(cmdPayload.cmd, cmdPayload, this);
 };
