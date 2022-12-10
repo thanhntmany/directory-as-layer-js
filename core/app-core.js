@@ -5,9 +5,17 @@ const CmdHandler = require("./command/handler");
 
 const Class = module.exports = function DALAppCore() {
 
-  // pure JS object to be able to use session
-  this.option = {};
-  // current runtime
+  this.base = {
+    path: "./",
+    exclude: "",
+    stack: [
+      { path: "/home/thanhntmany/base/any-whare" },
+      { path: "/home/thanhntmany/l/asdf/aax/asda" },
+      { path: "/home/thanhntmany/qwer/hjkl" },
+      { path: "/home/thanhntmany/l/vbvcx/qwer" },
+    ]
+  };
+
   this.commandArray = [
     { cmd: "ls" },
     { cmd: "pull" },

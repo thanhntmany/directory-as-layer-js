@@ -1,5 +1,6 @@
 'use strict';
 const { statSync } = require('fs');
+const { relative, isAbsolute } = require('path');
 
 
 exports.isDirectory = function (path) {
@@ -19,5 +20,7 @@ exports.isDirectory = function (path) {
   };
 };
 
-exports.loadJSON = function (file, ...args) {
+exports.isSubdirectory = function (parent, target) {
+  var rel = relative(parent, target);
+  return rel && !rel.startsWith('..') && !isAbsolute(rel);
 };
