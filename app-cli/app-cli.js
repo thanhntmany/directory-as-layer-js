@@ -135,7 +135,7 @@ proto_.compgen = function (restArg) {
 
 proto_.exec = function (args) {
   // If commandline end with "\?", break executing and switch to compgen mode.
-  if (args[args.length - 1].endsWith("?")) {
+  if (args.length > 0 && args[args.length - 1].endsWith("?")) {
     return this.compgen(args);
   };
 

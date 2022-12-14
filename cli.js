@@ -1,6 +1,6 @@
 'use strict';
 const { exec } = require("child_process");const path = require('path');
-// const AppCli = require('./app-cli/app-cli');
+const AppCli = require('./app-cli/app-cli');
 // const JSONio = require('./helper/json-io')
 
 
@@ -34,18 +34,6 @@ const { exec } = require("child_process");const path = require('path');
 // console.log("  <N>|   |   | * |   17      └─ asdasd ");
 // console.log("");
 
-// const appCli = AppCli.exec(process.argv.slice(2));
+const appCli = AppCli.exec(process.argv.slice(2));
 
 // console.dir(appCli, {"depth": null});
-
-exec("bash pwd", (error, stdout, stderr) => {
-  if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-  }
-  if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-  }
-  console.log(`stdout: ${stdout}`);
-});
