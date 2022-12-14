@@ -57,6 +57,7 @@ exports.init = function (payload) {
 };
 
 exports.initBaseAt = function (path) {
+
   return this.init().load(path);
 };
 

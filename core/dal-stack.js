@@ -3,7 +3,8 @@ const { isString } = require('../helper/string-helper');
 
 
 // @@ Main class
-const Class = function DALStack(payload) {
+const Class = function DALStack(payload, ...args) {
+  var wd = args.pop();
   this.layers = Array.isArray(payload) ? payload : [];
   return this;
 };

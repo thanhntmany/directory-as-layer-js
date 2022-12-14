@@ -2,7 +2,7 @@
 const { isAbsolute, join, resolve } = require('path');
 const DALStack = require("./dal-stack");
 const JsonIO = require("../helper/json-io");
-const { isDirectory, isFile } = require("../helper/fs-helper");
+const { isFile } = require("../helper/fs-helper");
 
 
 // @@ Main class
@@ -10,7 +10,6 @@ const Class = function DALBase(payload) {
   if (payload === undefined) payload = {};
 
   this.externalKey = payload.externalKey;
-
   this.stack = new DALStack(
     Array.isArray(payload.stack) ? payload.stack : []
   );
