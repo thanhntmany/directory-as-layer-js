@@ -2,18 +2,27 @@
 const { dirname, isAbsolute, join, resolve } = require('path');
 const DALBase = require("./dal-base");
 const { isDirectory, isSubdirectory, isFile } = require("../helper/fs-helper");
+const JsonIO = require("../helper/json-io");
 // @@ NOTE: This is a singleton module!!
 
 
 // @@ Export
 // constant
-exports.DAL_BASE_DIR_NAME = DALBase.prototype.DAL_BASE_DIR_NAME;
-exports.DAL_BASE_FILE_NAME = DALBase.prototype.DAL_BASE_FILE_NAME;
+exports.DAL_BASE_DIR_NAME = ".dal";
+exports.DAL_BASE_FILE_NAME = "base.json";
 
 
 // helpers
+exports.getPathToDalDirTo = function (path) {
+  return join(path, this.DAL_BASE_DIR_NAME);
+};
+
+exports.getPathToBaseFileTo = function (path) {
+  return join(this.getPathToDalDirTo(path), this.DAL_BASE_FILE_NAME);
+};
+
 exports.hasBaseFileAt = function (path) {
-  return isFile(join(path, this.DAL_BASE_DIR_NAME, this.DAL_BASE_FILE_NAME))
+  return isFile(this.getPathToBaseFileTo(path));
 };
 
 exports.getBasePathFromDescendant = function (fromPath) {
@@ -56,10 +65,26 @@ exports.init = function (payload) {
   return new this.Class(payload);
 };
 
-exports.initBaseAt = function (path) {
+exports.initWithBaseFile = function (baseFilePath) {
+  var payload = JsonIO.read_NoThrowIfNoEntry(baseFilePath);
+  if (!payload) payload = {};
 
-  return this.init().load(path);
+  var obj = this.init(payload);
+  obj.baseFile = baseFilePath;
+
+  return obj;
 };
+
+exports.initBaseAt = function (path) {
+  var obj = this.initWithBaseFile(this.getPathToBaseFileTo(path));
+  obj.basePath = path;
+  return obj;
+};
+
+// #TODO:
+// cover to Object
+// init .dal folder (if needed)
+// save to base file
 
 // @@ getting and caching
 exports.cache = {};
