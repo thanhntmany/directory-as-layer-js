@@ -82,7 +82,7 @@ exports.initBaseAt = function (path) {
 };
 
 // #TODO:
-// cover to Object
+// convert to Object
 // init .dal folder (if needed)
 // save to base file
 
