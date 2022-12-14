@@ -4,7 +4,7 @@
 // @@ Export
 exports.exec = function(payload, app) {
   console.log("Running a LS command");
-  app.data.stack.forEach(element => {
+  app.base.stack.layers.forEach(element => {
     console.log(element)
   });
 };

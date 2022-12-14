@@ -1,21 +1,15 @@
 'use strict';
 const { isAbsolute, join, resolve } = require('path');
-const DALStack = require("./dal-stack");
+const DALLayer = require("./dal-layer");
 const JsonIO = require("../helper/json-io");
 const { isDirectory } = require("../helper/fs-helper");
 
 
 // @@ Main class
 const Class = function DALBase(payload) {
-  if (payload === undefined) payload = {};
 
-  this.externalKey = payload.externalKey;
-  this.tags = payload.tags;
-
-  this.path = payload.path || this.path;
-  this.stack = new DALStack(
-    Array.isArray(payload.stack) ? payload.stack : []
-  );
+  this.layer = new DALLayer(payload);
+  this.stack = Array.isArray(payload.stack) ? payload.stack : [];
 
   return this;
 };
@@ -31,7 +25,6 @@ proto_.DAL_METADATA_FILE_NAME = "base.json";
 // @@ class function
 proto_.toObject = function () {
   return {
-    // #TODO:
     path: this.path,
     exclude: this.exclude,
     stack: this.stack,

@@ -7,7 +7,7 @@ const { isDirectory, isSubdirectory } = require("../helper/fs-helper");
 
 // @@ Export
 // constant
-exports.DAL_BASE_DIR_NAME = DALBase.DAL_BASE_DIR_NAME;
+exports.DAL_BASE_DIR_NAME = DALBase.prototype.DAL_BASE_DIR_NAME;
 
 
 // helpers
@@ -36,7 +36,8 @@ exports.getBasePathFromCache = function (path) {
   return undefined;
 };
 
-exports.getBasePathFrom = function (path) {
+exports.getBasePathOf = function (path) {
+
   if (!isAbsolute(path)) path = resolve(path);
 
   var baseDirPath = this.getBasePathFromDescendant(path);
@@ -67,11 +68,12 @@ exports.clearCache = function () {
 };
 
 exports.getBaseAt = function (path) {
+  if (!isAbsolute(path)) path = resolve(path);
   return path in this.cache
     ? this.cache[path]
     : this.cache[path] = this.initBaseAt(path);
 };
 
-exports.getBaseFrom = function (path) {
-  return this.getBaseAt(this.getBasePathFrom(path));
+exports.getBaseOf = function (path) {
+  return this.getBaseAt(this.getBasePathOf(path));
 };

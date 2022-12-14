@@ -1,20 +1,11 @@
 'use strict';
-const Session = require("./app-session");
+const DALBaseHandler = require("./dal-base-handler");
 const CmdHandler = require("./command/handler");
 
 
-const Class = module.exports = function DALAppCore() {
+const Class = module.exports = function DALAppCore(payload) {
 
-  this.base = {
-    path: "./",
-    exclude: "",
-    stack: [
-      { path: "/home/thanhntmany/base/any-whare" },
-      { path: "/home/thanhntmany/l/asdf/aax/asda" },
-      { path: "/home/thanhntmany/qwer/hjkl" },
-      { path: "/home/thanhntmany/l/vbvcx/qwer" },
-    ]
-  };
+  this.base = DALBaseHandler.getBaseOf(process.cwd());
 
   this.commandArray = [
     { cmd: "ls" },
@@ -38,11 +29,6 @@ proto_.logError = function () {
 
 
 // @@ function
-proto_.initSession = function () {
-  this.option = (this.sessionHandler = new Session(this.option)).getDataPointer();
-  return this;
-};
-
 proto_.execCommand = function (cmdPayload) {
   return CmdHandler.execCommand(cmdPayload.cmd, cmdPayload, this);
 };
@@ -57,6 +43,7 @@ proto_.exec = function () {
 if (require.main === module) {
   var app = new Class({
     stack: [
+      "./astraiers-server-core-ubuntu",
       { path: "/home/thanhntmany/base/any-whare" },
       { path: "/home/thanhntmany/l/asdf/aax/asda" },
       { path: "/home/thanhntmany/qwer/hjkl" },
