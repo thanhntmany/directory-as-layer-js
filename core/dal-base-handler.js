@@ -66,11 +66,8 @@ exports.init = function (payload) {
 };
 
 exports.initWithBaseFile = function (baseFilePath) {
-  var payload = JsonIO.read_NoThrowIfNoEntry(baseFilePath);
-  if (!payload) payload = {};
-
-  var obj = this.init(payload);
-  obj.baseFile = baseFilePath;
+  var obj = this.init(JsonIO.read_NoThrowIfNoEntry(baseFilePath));
+  obj.baseFilePath = baseFilePath;
 
   return obj;
 };

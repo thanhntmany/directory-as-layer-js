@@ -4,7 +4,7 @@ const DALStack = require("./dal-stack");
 
 // @@ Main class
 const Class = function DALBase(payload) {
-  if (payload === undefined) payload = {};
+  if (!payload) payload = {};
 
   this.externalKey = payload.externalKey;
   this.stack = new DALStack(

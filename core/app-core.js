@@ -3,14 +3,12 @@ const DALBaseHandler = require("./dal-base-handler");
 const CmdHandler = require("./command/handler");
 
 
-const Class = module.exports = function DALAppCore(payload) {
+const Class = function DALAppCore(payload) {
+  if (!payload) payload = {};
 
-  this.base = DALBaseHandler.getBaseOf(process.cwd());
-
-  this.commandArray = [
-    { cmd: "ls" },
-    { cmd: "pull" },
-  ];
+  this.option = {
+    cwd: payload.cwd || process.cwd()
+  };
 
   return this;
 };
@@ -29,14 +27,17 @@ proto_.logError = function () {
 
 
 // @@ function
+proto_.initBase = function (path) {
+  this.base = DALBaseHandler.getBaseOf(path || this.option.cwd);
+};
+
 proto_.execCommand = function (cmdPayload) {
   return CmdHandler.execCommand(cmdPayload.cmd, cmdPayload, this);
 };
 
-proto_.exec = function () {
-  this.commandArray.forEach(this.execCommand, this);
-  return this;
-};
+
+// @@ export
+module.exports = Class
 
 
 // @@ debug

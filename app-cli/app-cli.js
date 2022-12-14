@@ -1,14 +1,17 @@
 'use strict';
-const customOption = require("./customOption/__custom");
-const customCommand = require("./command/__custom");
+const CustomOption = require("./customOption/__custom");
+const CustomCommand = require("./command/__custom");
+const DALAppCore = require("../core/app-core");
 
 
 // @@ Main Class
 const Class = function DALAppCli() {
 
   this.cliData = {
+    option: {
+      cwd: process.cwd()
+    },
     restArg: [],
-    option: {},
     commandArray: [],
   };
 
@@ -16,6 +19,8 @@ const Class = function DALAppCli() {
     optionHandler: {},
     commandHandler: {},
   };
+
+  this.app = null;
 
 };
 
@@ -29,7 +34,7 @@ proto_.init = function (option) {
 
 proto_.getOptionHandler = function (key) {
   var cache_ = this.cache.optionHandler
-  if (key in customOption.alias) key = customOption.alias[key];
+  if (key in CustomOption.alias) key = CustomOption.alias[key];
   if (key in cache_) {
     return cache_[key];
   };
@@ -48,7 +53,7 @@ proto_.getOptionHandler = function (key) {
 
 proto_.getCommandHandler = function (key) {
   var cache_ = this.cache.commandHandler
-  if (key in customCommand.alias) key = customCommand.alias[key];
+  if (key in CustomCommand.alias) key = CustomCommand.alias[key];
   if (key in cache_) {
     return cache_[key];
   };
@@ -130,6 +135,7 @@ proto_.parse = function (args) {
 };
 
 proto_.compgen = function (restArg) {
+  console.log("compgen");
   return this.parse(restArg);
 };
 
@@ -155,6 +161,15 @@ proto_.run = function (cliData) {
     this.getCommandHandler(cmd.cmdName).exec(cmd, this);
   };
 
+  console.log("=========== this.getApp()");
+  console.log(this.initApp());
+
+  return this;
+};
+
+// app
+proto_.initApp = function () {
+  if (!this.app) this.app = new DALAppCore();
   return this;
 };
 

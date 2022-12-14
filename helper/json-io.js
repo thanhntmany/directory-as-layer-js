@@ -33,6 +33,15 @@ exports.read = function (file, ...args) {
   return JSON.parse(readFileSync(file, options));
 };
 
+exports.read_NoThrowIfNoEntry = function (...args) {
+  try {
+    return this.read.apply(this, args);
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  };
+  return null;
+};
+
 exports.write = function (file, obj, ...args) {
   var options = args.pop() || { "encoding": this.ENCODING };
 
