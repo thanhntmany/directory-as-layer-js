@@ -1,24 +1,25 @@
 'use strict';
 const { dirname, isAbsolute, join, resolve } = require('path');
 const DALBase = require("./dal-base");
-const { isDirectory, isSubdirectory } = require("../helper/fs-helper");
+const { isDirectory, isSubdirectory, isFile } = require("../helper/fs-helper");
 // @@ NOTE: This is a singleton module!!
 
 
 // @@ Export
 // constant
 exports.DAL_BASE_DIR_NAME = DALBase.prototype.DAL_BASE_DIR_NAME;
+exports.DAL_BASE_FILE_NAME = DALBase.prototype.DAL_BASE_FILE_NAME;
 
 
 // helpers
-exports.hasBaseDirAt = function (path) {
-  return isDirectory(join(path, this.DAL_BASE_DIR_NAME))
+exports.hasBaseFileAt = function (path) {
+  return isFile(join(path, this.DAL_BASE_DIR_NAME, this.DAL_BASE_FILE_NAME))
 };
 
 exports.getBasePathFromDescendant = function (fromPath) {
   var last;
   do {
-    if (this.hasBaseDirAt(fromPath)) return fromPath;
+    if (this.hasBaseFileAt(fromPath)) return fromPath;
 
     last = fromPath;
     fromPath = dirname(fromPath);
