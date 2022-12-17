@@ -38,4 +38,10 @@ proto_.readdir = function (path, options) {
 
 
 // @@ export
-module.exports = Class
+exports.Class = Class;
+
+exports.load = function (payload, instance) {
+  return instance instanceof this.Class
+    ? instance.constructor(payload)
+    : new this.Class(payload);
+};

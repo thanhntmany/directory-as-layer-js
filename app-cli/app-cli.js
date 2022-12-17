@@ -163,7 +163,7 @@ proto_.run = function (cliData) {
 
   console.log("=========== this.getApp()");
   var app = this.getApp(this.cliData.option);
-  console.log(app);
+  console.dir(app, { depth: null });
 
   return this;
 };

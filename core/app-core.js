@@ -13,25 +13,23 @@ const Class = function DALAppCore(payload) {
   for (var key in payload) {
     switch (key) {
 
-      case 'stack':
-        core_.stack = DALStack.load(payload.stack, core_.stack);
-        break;
-
       case 'cwd':
         var cwd = payload.cwd;
         if (!isAbsolute(cwd)) cwd = resolve(cwd);
         core_['working-dir'] = cwd;
         break;
-
-      default:
-        core_[key] = payload[key];
-        break;
-
     };
   };
 
   if (!('working-dir' in core_)) {
     core_['working-dir'] = process.cwd();
+  };
+
+  if ("stack-path" in payload) {
+    core_.stack = DALStack.loadFromFile(payload["stack-path"], core_.stack);
+  }
+  else if ("stack" in payload) {
+    core_.stack = DALStack.load(payload.stack, core_.stack);
   };
 
   return this;
@@ -58,6 +56,7 @@ proto_.execCommand = function (cmdPayload) {
 
 // @@ export
 module.exports.Class = Class;
+
 module.exports.load = function (payload, instance) {
   return instance instanceof this.Class
     ? instance.constructor(payload)
