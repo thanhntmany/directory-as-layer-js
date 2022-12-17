@@ -1,13 +1,37 @@
 'use strict';
-const DALBaseHandler = require("./dal-base-handler");
-const CmdHandler = require("./command/handler");
+const { isAbsolute, resolve } = require('path');
+const DALStack = require('./dal-stack');
+const DALHandleHandler = require('./dal-handle-handler');
+const CmdHandler = require('./command/handler');
 
 
 const Class = function DALAppCore(payload) {
-  if (!payload) payload = {};
+  if (!this.core) this.core = {};
+  const core_ = this.core;
 
-  this.option = {
-    cwd: payload.cwd || process.cwd()
+  if (!payload) payload = {};
+  for (var key in payload) {
+    switch (key) {
+
+      case 'stack':
+        core_.stack = DALStack.load(payload.stack, core_.stack);
+        break;
+
+      case 'cwd':
+        var cwd = payload.cwd;
+        if (!isAbsolute(cwd)) cwd = resolve(cwd);
+        core_['working-dir'] = cwd;
+        break;
+
+      default:
+        core_[key] = payload[key];
+        break;
+
+    };
+  };
+
+  if (!('working-dir' in core_)) {
+    core_['working-dir'] = process.cwd();
   };
 
   return this;
@@ -27,17 +51,18 @@ proto_.logError = function () {
 
 
 // @@ function
-proto_.initBase = function (path) {
-  this.base = DALBaseHandler.getBaseOf(path || this.option.cwd);
-};
-
 proto_.execCommand = function (cmdPayload) {
   return CmdHandler.execCommand(cmdPayload.cmd, cmdPayload, this);
 };
 
 
 // @@ export
-module.exports = Class
+module.exports.Class = Class;
+module.exports.load = function (payload, instance) {
+  return instance instanceof this.Class
+    ? instance.constructor(payload)
+    : new this.Class(payload);
+};
 
 
 // @@ debug

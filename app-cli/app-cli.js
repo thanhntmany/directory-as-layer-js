@@ -162,15 +162,16 @@ proto_.run = function (cliData) {
   };
 
   console.log("=========== this.getApp()");
-  console.log(this.initApp());
+  var app = this.getApp(this.cliData.option);
+  console.log(app);
 
   return this;
 };
 
-// app
-proto_.initApp = function () {
-  if (!this.app) this.app = new DALAppCore();
-  return this;
+
+// @@ getting utilities
+proto_.getApp = function (payload) {
+  return this.app = DALAppCore.load(payload, this.app);
 };
 
 

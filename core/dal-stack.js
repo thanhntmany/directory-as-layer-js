@@ -3,17 +3,21 @@ const { isString } = require('../helper/string-helper');
 
 
 // @@ Main class
-const Class = function DALStack(payload, ...args) {
-  var wd = args.pop();
-  this.layers = Array.isArray(payload) ? payload : [];
+const Class = function DALStack(payload) {
+  if (!payload) payload = {};
+
+  this.layers = payload.layers || [];
+
   return this;
 };
 
 const proto_ = Class.prototype;
 
 
-// @@ function
-
-
 // @@ export
-module.exports = Class
+exports.Class = Class;
+exports.load = function (payload, instance) {
+  return instance instanceof this.Class
+    ? instance.constructor(payload)
+    : new this.Class(payload);
+};
