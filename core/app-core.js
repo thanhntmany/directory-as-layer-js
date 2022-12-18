@@ -7,12 +7,10 @@ const CmdHandler = require('./command/handler');
 const Class = function DALAppCore(payload) {
   if (!this.core) this.core = {};
   const core_ = this.core;
-
   if (!payload) payload = {};
 
-  const anchorDir_ = core_.anchorDir = (new AnchorDir(payload["anchor-dir"])).anchorDirFindUp();
+  const anchorDir_ = core_.anchorDir = (new AnchorDir(payload)).anchorDirFindUp();
 
-  if (payload.stackPath) anchorDir_.constructor({ stackPath: payload.stackPath });
   core_.stack = DALStack.loadFromFile(anchorDir_.getStackPath(), core_.stack);
   core_.stack = DALStack.load(payload.stack, core_.stack);
 
