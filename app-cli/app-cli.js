@@ -9,7 +9,6 @@ const Class = function DALAppCli() {
 
   this.cliData = {
     option: {
-      cwd: process.cwd()
     },
     restArg: [],
     commandArray: [],

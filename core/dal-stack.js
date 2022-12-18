@@ -28,6 +28,11 @@ proto_.insert = function (layerPayload, index) {
   return this;
 };
 
+proto_.get = function (key) {
+  // #TODO:
+  return null;
+};
+
 
 // @@ export
 exports.Class = Class;
