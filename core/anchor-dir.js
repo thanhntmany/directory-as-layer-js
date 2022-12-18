@@ -6,15 +6,14 @@ const { isString } = require('../helper/string-helper');
 
 // @@ Main class
 const Class = function AnchorDir(payload) {
+  this.anchorDir = process.cwd();
+  this.dalPath = join(this.anchorDir, ".dal");
+  this.stackPath = undefined;
+  this.baseLayerPath = undefined;
+
   if (!payload) payload = {};
   if (isString(payload)) payload = { anchorDir: payload };
-
-  this.anchorDir = payload.anchorDir ? resolve(payload.anchorDir) : process.cwd();
-  this.dalPath = payload.dalPath ? resolve(payload.dalPath) : join(this.anchorDir, ".dal");
-
-  this.stackPath = payload.stackPath ? resolve(payload.stackPath) : undefined;
-  this.baseLayerPath = payload.baseLayerPath ? resolve(payload.baseLayerPath) : undefined;
-
+  this.load(payload);
   return this;
 };
 
