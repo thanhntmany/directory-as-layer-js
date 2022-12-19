@@ -11,10 +11,7 @@ const Class = function AnchorDir(payload) {
   this.stackPath = undefined;
   this.baseLayerPath = undefined;
 
-  if (!payload) payload = {};
-  if (isString(payload)) payload = { anchorDir: payload };
-  this.load(payload);
-  return this;
+  return this.load(payload);
 };
 
 const proto_ = Class.prototype;

@@ -6,16 +6,11 @@ const { isString } = require('../helper/string-helper');
 
 // @@ Main class
 const Class = function DALLayer(payload) {
-  if (!payload) payload = {};
-  if (isString(payload)) payload = { path: payload };
+  this.tags = [];
+  this.path = null;
+  this.excludes = [];
 
-  var path = payload.path || "";
-  if (!Path.isAbsolute(path)) path = Path.resolve(path);
-
-  this.tags = Array.isArray(payload.tags) ? payload.tags : [];
-  this.path = path;
-  this.excludes = Array.isArray(payload.excludes) ? payload.excludes : [];
-
+  this.load(payload);
   return this;
 };
 
@@ -23,6 +18,21 @@ const proto_ = Class.prototype;
 
 
 // @@ function
+proto_.load = function (payload) {
+  if (!payload) return this;
+  if (isString(payload)) payload = { path: payload };
+
+  var path = payload.path;
+  if (!Path.isAbsolute(path)) path = Path.resolve(path);
+  if (payload.path) this.path = payload.path;
+
+  if (Array.isArray(payload.tags)) this.tags = payload.tags;
+  if (Array.isArray(payload.excludes)) this.excludes = payload.excludes;
+
+  return this;
+};
+
+// @@
 proto_.resolve = function (...paths) {
   return Path.resolve.apply(Path, paths.unshift(this.path))
 };
@@ -38,10 +48,4 @@ proto_.readdir = function (path, options) {
 
 
 // @@ export
-exports.Class = Class;
-
-exports.load = function (payload, instance) {
-  return instance instanceof this.Class
-    ? instance.constructor(payload)
-    : new this.Class(payload);
-};
+module.exports = Class;

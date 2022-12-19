@@ -5,19 +5,18 @@ const CmdHandler = require('./command/handler');
 
 
 const Class = function DALAppCore(payload) {
-  if (!this.core) this.core = {};
+  this.core = {};
   const core_ = this.core;
-  if (!payload) payload = {};
 
-  const anchorDir_ = core_.anchorDir = new AnchorDir(payload);
+  core_.anchorDir = new AnchorDir(payload.anchorDir);
+  const anchorDir_ = core_.anchorDir;
+
   anchorDir_.anchorDirFindUp();
 
-  core_.stack = DALStack.loadFromFile(anchorDir_.getStackPath(), core_.stack);
-  core_.stack = DALStack.load(payload.stack, core_.stack);
+  core_.stack = new DALStack(anchorDir_.getStackPath());
 
   return this;
 };
-
 const proto_ = Class.prototype;
 
 
@@ -32,6 +31,12 @@ proto_.logError = function () {
 
 
 // @@ function
+proto_.load = function (payload) {
+  if (payload.anchorDir) this.core.anchorDir.load(payload.anchorDir);
+
+  return this;
+};
+
 proto_.execCommand = function (cmdPayload) {
   return CmdHandler.execCommand(cmdPayload.cmd, cmdPayload, this);
 };
