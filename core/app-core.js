@@ -9,7 +9,8 @@ const Class = function DALAppCore(payload) {
   const core_ = this.core;
   if (!payload) payload = {};
 
-  const anchorDir_ = core_.anchorDir = (new AnchorDir(payload)).anchorDirFindUp();
+  const anchorDir_ = core_.anchorDir = new AnchorDir(payload);
+  anchorDir_.anchorDirFindUp();
 
   core_.stack = DALStack.loadFromFile(anchorDir_.getStackPath(), core_.stack);
   core_.stack = DALStack.load(payload.stack, core_.stack);

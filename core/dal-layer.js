@@ -6,7 +6,7 @@ const { isString } = require('../helper/string-helper');
 
 // @@ Main class
 const Class = function DALLayer(payload) {
-  if (payload === undefined) payload = {};
+  if (!payload) payload = {};
   if (isString(payload)) payload = { path: payload };
 
   var path = payload.path || "";
